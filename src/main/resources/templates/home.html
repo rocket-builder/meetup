@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+<header th:insert="components/header :: header"></header>
+
+<a href="/events">Blog</a>
+
+<p th:text="'This is home, ' + ${title} + '!'" />
+
+<div th:insert="components/footer :: footer"></div>
+</body>
+</html>

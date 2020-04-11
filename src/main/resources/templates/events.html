@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.events</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+    <body>
+
+    <header th:insert="components/header :: header"></header>
+    <div class="container">
+        <h1>Our events</h1>
+        <div th:each="event : ${events}">
+            <h2 th:text="${event.title}"></h2>
+            <p th:text="${event.description}"></p>
+            <a th:href="'/event/' + ${event.id}">Read more</a>
+            <p th:text="'Views ' + ${event.views}"></p>
+        </div>
+
+    </div>
+
+    <div th:insert="components/footer :: footer"></div>
+
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+    <header th:insert="components/header :: header"></header>
+
+    <!--<p th:text="'This is profile, ' + ${session.login} + '!'" />-->
+
+    <h1 th:text="'Hello, ' + ${user.username} + '!'"></h1>
+    <h3 th:text="'With us from ' + ${user.signup_date}"></h3>
+    <p th:text="${user.about}"></p>
+    <a href="/events/add">Add new event</a>
+
+    <a class="ui tiny green btn" href="/logout">Logout</a>
+
+    <div th:insert="components/footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/master.js}"></script>
+</body>
+</html>

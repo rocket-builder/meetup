@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+
+    <a href="/signup">Signup</a>
+    <h1>Log In</h1>
+    <div><label> User Name : <input type="text" id="login-username"/> </label></div>
+    <div><label> Password: <input type="password" id="login-password"/> </label></div>
+    <div><input type="submit" value="Log in" id="login-btn"/></div>
+
+    <h3 style="color:red;" id="login-error"></h3>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/handlers/login-handler.js}"></script>
+</body>
+</html>

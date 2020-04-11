@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.add</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+    <link rel="stylesheet" th:href="@{/js/plugins/Datepicker.js/dist/css/datepicker.material.css}">
+    <link rel="stylesheet" th:href="@{/css/datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+
+    <h1>Add meetup</h1>
+    <input type="text" id="events-add-title" placeholder="Title"/>
+    <textarea id="events-add-description" cols="30" rows="10"></textarea>
+    <textarea id="events-add-markup" cols="30" rows="10"></textarea>
+    <input type="file" placeholder="Pick header image" id="events-add-file"/>
+    <input type="hidden" id="custom">
+    <button id="events-add-btn">Add</button>
+
+    <h3 style="color:red;" id="events-add-error"></h3>
+    <div id="events-add-message" class="success" style="display:none;"></div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/plugins/Datepicker.js/dist/datepicker.js}"></script>
+<script th:src="@{/js/master.js}"></script>
+<script th:src="@{/js/handlers/events-add-handler.js}"></script>
+</body>
+</html>

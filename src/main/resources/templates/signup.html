@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.signup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+<header th:insert="components/header :: header"></header>
+
+    <div th:if="${message}">
+        <h2 th:text="${message}"></h2>
+    </div>
+
+    <h1>Signup</h1>
+    <input type="text" id="signup-login" placeholder="Login"/>
+    <input type="email" id="signup-email" placeholder="Email"/>
+    <input type="password" id="signup-password" placeholder="Password"/>
+    <input type="password" id="signup-password2" placeholder="Repeat password"/>
+    <button id="signup-send-code-btn">Sign up</button>
+
+<div th:insert="components/footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/handlers/signup-handler.js}"></script>
+</body>
+</html>
