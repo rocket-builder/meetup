@@ -23,6 +23,9 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy="event")
+    private Set<Comment> comments;
+
     private String title;
     private String description;
     private String markup;
@@ -114,6 +117,16 @@ public class Event {
 
     public Set<User> getUsers() { return users; }
     public void setUsers(Set<User> subscribers) { this.users = subscribers; }
+
+    public Set<Comment> getComments() { return comments; }
+    public void setComments(Set<Comment> comments) { this.comments = comments; }
+
+    public List<Comment> getOrderedComments() {
+        ArrayList<Comment> results = new ArrayList<>(comments);
+        Collections.reverse(results);
+        
+        return results;
+    }
 }
 
 

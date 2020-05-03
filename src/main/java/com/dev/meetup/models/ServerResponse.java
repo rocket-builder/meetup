@@ -5,6 +5,7 @@ public class ServerResponse {
     private String message;
     private  boolean isError;
     private Object content;
+    private Object content2;
 
     public ServerResponse() {}
 
@@ -17,6 +18,13 @@ public class ServerResponse {
         this.message = message;
         this.isError = isError;
         this.content = content;
+    }
+
+    public ServerResponse(String message, boolean isError, Object content, Object content2) {
+        this.message = message;
+        this.isError = isError;
+        this.content = content;
+        this.content2 = content2;
     }
 
     public String getMessage() {return message;}

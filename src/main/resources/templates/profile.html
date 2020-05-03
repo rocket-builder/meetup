@@ -59,7 +59,8 @@
                         <a th:href="'/event/'+${event.id}+'/subscribers'" class="white-text" style="font-weight: 600;line-height: 0.4em;cursor: pointer;"><i class="user circle icon"></i> Subscribers</a>
                     </div>
                     <br><i style="font-weight: 600;" class="eye icon white-text"></i><span th:text="${event.views}" class="white-text" style="font-weight: 600;"></span>
-                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.getUsers().size()}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.users.size()}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="comments icon white-text"></i><span th:text="${event.comments.size()}" class="white-text" style="font-weight: 600;"></span>
                 </div>
             </div>
         </div>
@@ -94,7 +95,8 @@
 
                     <a th:href="'/event/' + ${event.id}" class="white-text" style="font-weight: 600;text-decoration: underline;line-height: 0.4em;">Read more</a>
                     <br><i style="font-weight: 600;" class="eye icon white-text"></i><span th:text="${event.views}" class="white-text" style="font-weight: 600;"></span>
-                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.getUsers().size()}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.users.size()}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="comments icon white-text"></i><span th:text="${event.comments.size()}" class="white-text" style="font-weight: 600;"></span>
                 </div>
             </div>
         </div>

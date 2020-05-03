@@ -42,6 +42,46 @@
                 <br><br><p style="font-weight: 800;font-size: 5em;text-shadow:6px -6px 0px rgba(249,170,13,1);" th:text="${event.geStringDate()}"></p>
             </div>
             <div class="ui container" th:utext="${event.markup}" style="margin-bottom: 5em;"></div>
+
+            <div class="ui container">
+                <form class="ui reply form" th:if="${session.get('username') != null}">
+                    <div class="field">
+                        <textarea id="inp-comment-text"></textarea>
+                    </div>
+                    <div class="ui primary submit labeled icon button" id="btn-comment-add">
+                        <i class="icon edit"></i> Add Comment
+                    </div>
+                </form>
+                <div class="ui comments" id="comments-container">
+                    <div class="comment" th:each="comment : ${event.getOrderedComments()}" th:if="${event.comments.size() > 0}">
+                        <a class="avatar">
+                            <img style="border-radius: 50%;" th:if="${comment.user.avatar_path != null}" th:src="${comment.user.avatar_path}">
+                            <i class="ui tiny circular user icon" th:if="${comment.user.avatar_path == null}"></i>
+                        </a>
+                        <div class="content">
+                            <a class="author" th:text="${comment.user.username}" th:href="'/profile/'+${comment.user.username}"></a>
+                            <div class="metadata"><div class="date" th:text="${comment.getStringDate()}"></div></div>
+                            <div class="text"><p th:text="${comment.text}"></p></div>
+                            <div class="actions"><a class="reply">Reply</a></div>
+                        </div>
+                        <div class="comments" th:if="${comment.commentsReply.size() > 0}">
+                            <div class="comment" th:each="comment : ${event.getOrderedComments()}" th:if="${event.comments.size() > 0}">
+                                <a class="avatar">
+                                    <img style="border-radius: 50%;" th:if="${comment.user.avatar_path != null}" th:src="${comment.user.avatar_path}">
+                                    <i class="ui tiny circular user icon" th:if="${comment.user.avatar_path == null}"></i>
+                                </a>
+                                <div class="content">
+                                    <a class="author" th:text="${comment.user.username}" th:href="'/profile/'+${comment.user.username}"></a>
+                                    <div class="metadata"><div class="date" th:text="${comment.getStringDate()}"></div></div>
+                                    <div class="text"><p th:text="${comment.text}"></p></div>
+<!--                                    <div class="actions"><a class="reply">Reply</a></div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div th:insert="components/footer :: footer"></div>
         </div>
     </div>
@@ -52,6 +92,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor-insert-plugin/2.5.1/js/medium-editor-insert-plugin.min.js"></script>
 <script th:src="@{/js/editor-settings.js}"></script>
 <script th:src="@{/js/master.js}"></script>
+<script th:src="@{/js/handlers/comment-handler.js}"></script>
 
 </body>
 </html>

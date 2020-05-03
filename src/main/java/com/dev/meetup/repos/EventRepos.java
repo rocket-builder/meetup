@@ -1,5 +1,6 @@
 package com.dev.meetup.repos;
 
+import com.dev.meetup.models.Comment;
 import com.dev.meetup.models.Event;
 import com.dev.meetup.models.User;
 import org.springframework.data.repository.CrudRepository;
@@ -20,5 +21,5 @@ public interface EventRepos extends CrudRepository<Event, Long> {
     List<Event> getAllByDateAfterOrderByIdDesc(Date date);
     List<Event> getAllByDateBeforeOrderByIdDesc(Date date);
     List<Event> getAllByDateEqualsOrderById(Date date);
-//    TODO Override save method to return id of inserted event
+
 }
