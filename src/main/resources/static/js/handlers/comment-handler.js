@@ -32,15 +32,14 @@ $('#btn-comment-add').click(() => {
 });
 
 function getCommentHtml(text, username, avatarPath) {
+    let avatar = avatarPath != null || avatarPath !== ''? '<img style="border-radius: 50%;" src="'+avatarPath+'">' : '<i class="ui tiny circular user icon"></i>';
     return '<div class="comment">\n' +
-        '                        <a class="avatar">\n' +
-        avatarPath != null || avatarPath !== ''? '<img style="border-radius: 50%;" src="\'+avatarPath+\'">' : '<i class="ui tiny circular user icon" th:if="${comment.user.avatar_path == null}"></i>' +
-        '                        </a>\n' +
+        '                        <a class="avatar">\n' + avatar + '</a>\n' +
         '                        <div class="content">\n' +
-        '                            <a class="author" href="/profile/'+username+'">'+username+'</a>\n' +
-        '                            <div class="metadata"><div class="date">'+getDate()+'</div></div>\n' +
-        '                            <div class="text"><p>'+text+'</p></div>\n' +
+        '                            <a class="author" href="/profile/' + username + '">' + username + '</a>\n' +
+        '                            <div class="metadata"><div class="date">' + getDate() + '</div></div>\n' +
+        '                            <div class="text"><p>' + text + '</p></div>\n' +
         '                            <div class="actions"><a class="reply">Reply</a></div>\n' +
         '                        </div>\n' +
-        '                    </div>';
+        '</div>';
 }
