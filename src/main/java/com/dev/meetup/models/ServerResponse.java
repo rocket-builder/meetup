@@ -4,7 +4,7 @@ public class ServerResponse {
 
     private String message;
     private  boolean isError;
-    private int inserted_id;
+    private Object content;
 
     public ServerResponse() {}
 
@@ -13,10 +13,10 @@ public class ServerResponse {
         this.isError = isError;
     }
 
-    public ServerResponse(String message, boolean isError, int inserted_id) {
+    public ServerResponse(String message, boolean isError, Object content) {
         this.message = message;
         this.isError = isError;
-        this.inserted_id = inserted_id;
+        this.content = content;
     }
 
     public String getMessage() {return message;}
@@ -25,6 +25,7 @@ public class ServerResponse {
     public boolean isError() {return isError;}
     public void setError(boolean error) {isError = error;}
 
-    public int getInserted_id() {return inserted_id;}
-    public void setInserted_id(int inserted_id) {this.inserted_id = inserted_id;}
+    public Object getContent() {return content;}
+    public void setContent(Object[] content) {this.content = content;}
+
 }

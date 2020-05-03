@@ -1,5 +1,65 @@
 <div th:fragment="header">
-    <div class="header">
-        <h1>HEADER DEV.MEETUP</h1>
-    </div>
+        <div class="ui container">
+            <div class="ui large secondary network menu">
+                <a class="item" onclick="sidebar()">
+                    <i style="font-weight: 900;" class="sidebar icon"></i>
+                </a>
+                <div class="item">
+                    <div class="ui logo shape">
+                        <div class="sides">
+                            <a href="/events" class="black-text active ui side" style="font-weight: 600;">
+                                <img class="ui middle aligned mini image" src="/res/logo.png">
+                                <span>dev.meetup</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="ui search">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="search.." id="inp-global-search">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results" id="search-results"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="/events/soon" class="ui link black-text" style="font-weight: 600;">Soon</a>
+                </div>
+                <div class="item">
+                    <a href="/events/today" class="ui link black-text" style="font-weight: 600;">Today</a>
+                </div>
+                <div class="item">
+                    <a href="/events/past" class="ui link black-text" style="font-weight: 600;">Past</a>
+                </div>
+                <div class="right menu inverted" th:if="${session.get('username') == null}">
+                    <div class="item">
+                        <a href="/login" class="ui link black-text" style="font-weight: 600;">Login</a>
+                    </div>
+                    <div class="item">
+                        <a href="/signup" class="ui link black-text" style="font-weight: 600;">Sign up</a>
+                    </div>
+                </div>
+                <div class="right menu inverted" th:if="${session.get('username') != null}">
+                    <div class="item">
+                        <div class="ui dropdown">
+                            <i class="circular user icon" th:if="${session.get('avatar') == null}"></i>
+                            <img class="ui avatar image" th:if="${session.get('avatar') != null}" th:src="@{${session.avatar}}"/>
+                        <span class="text" style="font-weight: 800;" th:text="${session.username}"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="header">Account</div>
+                            <a class="item" th:href="'/profile/'+${session.username}">My profile</a>
+                            <div class="divider"></div>
+                            <a th:href="'/profile/'+${session.username} + '/edit'" class="item">Edit</a>
+                            <a th:href="'/profile/'+${session.username} + '/settings'" class="item">Settings</a>
+                            <a href="#" class="item">Help</a>
+                            <div class="divider"></div>
+                            <a href="/logout" class="item">Logout</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

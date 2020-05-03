@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:text ="${event.title}+'.joined'"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+<div th:insert="components/sidebar :: sidebar"></div>
+<div class="pusher">
+    <div class="full height">
+        <div th:insert="components/header :: header"></div>
+        <div class="ui masthead center aligned segment" th:style="'background-image:'+
+            'linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),' +
+            'url('+${event.picture_path}+');'+
+            'background-position: center center;'+
+            'margin: 0em;' +
+            'border: none;' +
+            'border-radius: 0px;'
+        ">
+            <div class="ui container" style="padding: 5em;">
+                <p th:text="${event.title}" class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: center;letter-spacing: 0.01em;">
+                </p>
+                <p th:text="${event.description}" class="ui white-text" style="font-weight: 600;"></p>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <a class="yellow-text" style="font-weight: 900;" th:href="'/profile/' + ${event.publisher.username}" th:text="'Organizator: ' + ${event.publisher.username}"></a>
+            <br><br><br><span style="font-weight: 700;font-size: 3em;" th:text="${event.status.toString()}"></span>
+            <br><br><p style="font-weight: 800;font-size: 5em;text-shadow:6px -6px 0px rgba(249,170,13,1);" th:text="${event.geStringDate()}"></p>
+        </div>
+        <div th:if="${event.getUsers().size() == 0}" style="text-align: center;padding: 5em;color: rgba(0,0,0,.2);font-size:1.5em;font-weight: 800;">Not subscribers yet :(</div>
+
+        <div class="ui three column wide stackable grid container" th:if="${event.getUsers().size() > 0}" style="margin-bottom: 5em;">
+            <div class="ui column" th:each="user : ${event.getUsers()}" style="justify-content: center;">
+                <p style="text-align: center;">
+                    <i class="huge circular user icon" th:if="${user.avatar_path == null}"></i>
+                    <img style="width: 8em;height: 8em;margin: 0 auto;" class="ui circular image" th:if="${user.avatar_path != null}" th:src="@{${user.avatar_path}}"/>
+                </p>
+                <p style="text-align: center"><a th:href="'/profile/'+${user.username}" style="font-weight: 800;font-size: 2em;margin-bottom: 0.6em;border-bottom: 3px solid #F9AA0D;color:black;" th:text="${user.username}" target="_blank"></a></p>
+                <p style="font-weight: 700; font-size: 1.5em;text-align: center;margin-bottom: 0.3em;">Contact</p>
+                <p style="font-weight: 600; font-size: 0.7em;text-align: center" th:text="${user.email}"></p>
+            </div>
+        </div>
+        <div th:insert="components/footer :: footer"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/master.js}"></script>
+</body>
+</html>

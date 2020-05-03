@@ -2,23 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>dev.meetup.login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" th:href="@{/css/master.css}">
 </head>
 <body>
-
-    <a href="/signup">Signup</a>
-    <h1>Log In</h1>
-    <div><label> User Name : <input type="text" id="login-username"/> </label></div>
-    <div><label> Password: <input type="password" id="login-password"/> </label></div>
-    <div><input type="submit" value="Log in" id="login-btn"/></div>
-
-    <h3 style="color:red;" id="login-error"></h3>
-
+<div th:insert="components/sidebar :: sidebar"></div>
+    <div class="pusher">
+        <div class="full height">
+            <div th:insert="components/header :: header"></div>
+            <div class="ui masthead center aligned segment" style="
+            background-image:
+            linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),
+            url('/res/login.png');
+            background-position: center center;
+            padding: 15em;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+        ">
+                <div class="ui container" style="padding: 5em;">
+                    <div><label class="white-text"> User Name : <input class="custom" type="text" id="login-username"/> </label></div>
+                    <div><label class="white-text"> Password: <input class="custom" type="password" id="login-password"/> </label></div>
+                    <br>
+                    <div class="white-text link-hover-center" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;" id="login-btn">Log in</div>
+                    <p class="white-text" style="font-weight: 800;font-size: 1.5em;padding-top: 2em;" id="login-error"></p>
+                </div>
+            </div>
+            <div th:insert="components/footer :: footer"></div>
+        </div>
+    </div>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script th:src="@{/js/handlers/login-handler.js}"></script>
+<script th:src="@{/js/master.js}"></script>
 </body>
 </html>

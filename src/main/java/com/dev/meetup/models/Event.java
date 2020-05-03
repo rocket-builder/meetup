@@ -1,7 +1,11 @@
 package com.dev.meetup.models;
 
+import com.dev.meetup.enums.EventStatus;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 public class Event {
@@ -13,25 +17,59 @@ public class Event {
     @JoinColumn (name = "publisher_id")
     private User publisher;
 
+    @ManyToMany
+    @JoinTable(name = "user_event",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
+
     private String title;
     private String description;
     private String markup;
     private String picture_path;
-
-    private String dates;
+    private Date date;
+    private Date upd = null;
+    private EventStatus status;
+    private String place;
 
     private int views;
 
     public Event() {}
 
-    public Event(String title, String description, String markup, String picture_path, String dates, User user) {
+    public Event(String title, String description, String markup, String picture_path, String date, User user, String place) throws ParseException {
         this.title = title;
         this.description = description;
         this.markup = markup;
         this.picture_path = picture_path;
-        this.dates = dates;
+        this.date =  new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        this.place = place;
+        this.status = EventStatus.PREPARE;
         this.views = 0;
         this.publisher = user;
+    }
+
+    public void Update(String title, String description, String markup,
+                       //String picture_path,
+                       String date, String place) throws ParseException {
+        this.title = title;
+        this.description = description;
+        this.markup = markup;
+        //this.picture_path = picture_path;
+        this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        this.place = place;
+        this.upd = new Date();
+    }
+
+    public void addView() {
+        this.views++;
+    }
+
+    public void addSubscribe(User subscriber) {
+        users.add(subscriber);
+    }
+
+    public void deleteSubscribe(User subscriber) {
+        users.remove(subscriber);
     }
 
     public long getId() { return id; }
@@ -55,6 +93,27 @@ public class Event {
     public User getPublisher() { return publisher; }
     public void setPublisher(User publisher) { this.publisher = publisher; }
 
-    public String getDates() { return dates;}
-    public void setDates(String dates) { this.dates = dates; }
+    public Date getDate() { return date;}
+    public void setDate(Date date) { this.date = date; }
+
+    public String geStringDate() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(date);
+    }
+    public String geInputDate() {
+        return new SimpleDateFormat("yyy-MM-dd").format(date);
+    }
+
+    public EventStatus getStatus() { return status; }
+    public void setStatus(EventStatus status) { this.status = status; }
+
+    public String getPlace() { return place; }
+    public void setPlace(String place) { this.place = place; }
+
+    public Date getUpd() { return upd; }
+    public void setUpd(Date upd) { this.upd = upd; }
+
+    public Set<User> getUsers() { return users; }
+    public void setUsers(Set<User> subscribers) { this.users = subscribers; }
 }
+
+

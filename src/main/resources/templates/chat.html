@@ -1,0 +1,45 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>dev.meetup.login</title>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">-->
+
+<!--    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">-->
+<!--    <link rel="stylesheet" th:href="@{/css/master.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:insert="components/sidebar :: sidebar"></div>-->
+<!--<div class="pusher">-->
+<!--    <div class="full height">-->
+<!--        <div th:insert="components/header :: header"></div>-->
+
+<!--        <div class="ui container" th:if="${chat.getMessages().size() == 0}" style="padding: 10em;">-->
+<!--            <p style="font-weight: 800;color:rgba(0,0,0,.2);font-size: 1.5em;text-align: center;">No messages yet</p>-->
+<!--        </div>-->
+<!--        <div class="ui container" th:if="${chat.getMessages().size() > 0}">-->
+<!--            <div th:each="message : ${chat.getMessages()}">-->
+<!--                <div>-->
+<!--                    <p th:text="${message.from} +':'+ ${message.message}"></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <input type="text" placeholder="message" id="inp-message"/>-->
+<!--        <button id="btn-send-message">send</button>-->
+
+<!--        <div th:insert="components/footer :: footer"></div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="https://code.jquery.com/jquery-3.4.1.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>-->
+<!--<script th:src="@{/js/handlers/login-handler.js}"></script>-->
+<!--<script th:src="@{/js/websocket.js}"></script>-->
+<!--<script th:src="@{/js/master.js}"></script>-->
+<!--<script th:inline="javascript">-->
+<!--    let id = [[${chat.from.getId()}]];-->
+<!--    connectToChat(id);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

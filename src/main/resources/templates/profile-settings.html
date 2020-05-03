@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>dev.meetup.profile</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+<div th:insert="components/sidebar :: sidebar"></div>
+<div class="pusher">
+    <div class="full height">
+        <div th:insert="components/header :: header"></div>
+        <div class="ui masthead center aligned segment" th:style="'background-image:'+
+            'linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),' +
+            'url('+ ${user.background_path == null? '/res/masthead.jpg' : user.background_path}  + ');'+
+            'background-position: center center;'+
+            'margin: 0em;' +
+            'border: none;' +
+            'border-radius: 0px;'
+        ">
+            <div class="ui container" style="padding: 5em;">
+                <p class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: center;letter-spacing: 0.01em;margin-bottom: 0em;">Profile settings</p>
+            </div>
+        </div>
+        <div class="ui container" style="padding: 10em;">
+            <div class="ui form" style="margin-bottom: 2em;">
+                <div class="field">
+                    <label style="font-weight: 700;font-size: 1em;">Email</label>
+                    <input type="email" id="inp-profile-email" th:value="${user.email}"/>
+                </div>
+                <div id="btn-save-email" class="center aligned" style="cursor: pointer;display: inline-block;font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;">Save new email</div>
+                <h2>Change password</h2>
+                <div class="field">
+                    <label style="font-weight: 700;font-size: 1em;">Old password</label>
+                    <input type="password" id="inp-profile-password-old"/>
+                </div>
+                <div class="field">
+                    <label style="font-weight: 700;font-size: 1em;">New password</label>
+                    <input type="text" id="inp-profile-password-new"/>
+                </div>
+                <div class="field">
+                    <label style="font-weight: 700;font-size: 1em;">Repeat new password</label>
+                    <input type="text" id="inp-profile-password-new2"/>
+                </div>
+            </div>
+            <div id="btn-save-password" class="center aligned" style="cursor: pointer;display: inline-block;font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;">Save new password</div>
+            <div id="message-profile-settings" style="color:rgba(0,0,0,.2);display: none;font-weight: 700;padding: 2em;text-align: center;"></div>
+        </div>
+
+        <div th:insert="components/footer :: footer"></div>
+    </div>
+</div>
+<div th:insert="components/delete-modal :: #delete-modal"></div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/handlers/profile-settings-handler.js}"></script>
+<script th:src="@{/js/master.js}"></script>
+
+</body>
+</html>

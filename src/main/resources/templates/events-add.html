@@ -3,30 +3,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>dev.meetup.add</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-
-    <link rel="stylesheet" th:href="@{/js/plugins/Datepicker.js/dist/css/datepicker.material.css}">
-    <link rel="stylesheet" th:href="@{/css/datepicker.css}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor-insert-plugin/2.5.1/css/medium-editor-insert-plugin.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor-insert-plugin/2.5.1/css/medium-editor-insert-plugin-frontend.min.css">
     <link rel="stylesheet" th:href="@{/css/master.css}">
 </head>
 <body>
-
-    <h1>Add meetup</h1>
-    <input type="text" id="events-add-title" placeholder="Title"/>
-    <textarea id="events-add-description" cols="30" rows="10"></textarea>
-    <textarea id="events-add-markup" cols="30" rows="10"></textarea>
-    <input type="file" placeholder="Pick header image" id="events-add-file"/>
-    <input type="hidden" id="custom">
-    <button id="events-add-btn">Add</button>
-
-    <h3 style="color:red;" id="events-add-error"></h3>
-    <div id="events-add-message" class="success" style="display:none;"></div>
+<div th:insert="components/sidebar :: sidebar"></div>
+<div class="pusher">
+    <div class="full height">
+        <div th:insert="components/header :: header"></div>
+        <div class="ui masthead center aligned segment" id="photo-preview" style="
+            background: rgba(0,0,0,.2);
+            margin: 0;
+            border: none;
+            border-radius: 0;
+        ">
+            <div class="ui container" style="padding: 5em;">
+                <input type="text" class="custom-simple white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: center;letter-spacing: 0.01em;" id="events-add-title" value="Title"><br><br>
+                <input type="text" class="custom-simple white-text" style="font-weight: 600;" id="events-add-description" value="short description"><br><br>
+                <i style="font-weight: 700;" class="map marker alternate icon white-text"></i><input type="text" class="custom-simple white-text" style="font-weight: 600;" id="events-add-place" value="location"><br><br>
+                <input id="events-add-file" type="file" style="display: none;" onchange="preview(this)"/>
+                <label for="events-add-file" style="color:white;cursor: pointer;font-weight: 700;font-size: 1em;"><i class="camera icon"></i> Pick up photo</label>
+                <br><br>
+                <div class="white-text link-hover-center" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;" id="events-add-btn">Publish</div>
+                <div class="white-text" style="font-weight: 700;padding: 1em;" id="events-add-error"></div>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <a class="yellow-text" style="font-weight: 900;" th:href="'/profile/' + ${session.username}" th:text="'Organizator: ' + ${session.username}"></a>
+            <br><br><br><span style="font-weight: 700;font-size: 3em;">PREPARE</span>
+            <br><br>
+            <input type="date"
+                   style="font-weight: 800;font-size: 5em;text-shadow:6px -6px 0px rgba(249,170,13,1);"
+                   class="custom-simple black-text"
+                   id="events-add-date"
+            />
+            <br><br>
+        </div>
+        <div class="ui container editable" style="margin-bottom: 5em;outline: none;" id="events-add-markup"></div>
+        <div th:insert="components/footer :: footer"></div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-<script th:src="@{/js/plugins/Datepicker.js/dist/datepicker.js}"></script>
+<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor-insert-plugin/2.5.1/js/medium-editor-insert-plugin.min.js"></script>
+<script th:src="@{/js/editor-settings.js}"></script>
 <script th:src="@{/js/master.js}"></script>
 <script th:src="@{/js/handlers/events-add-handler.js}"></script>
 </body>

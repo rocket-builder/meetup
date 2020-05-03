@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class LoginController {
@@ -22,11 +22,11 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/events";
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login() {
         return "/login";
     }
 
@@ -37,7 +37,6 @@ public class LoginController {
             @RequestParam String password,
             HttpSession session
     ) {
-
         User user = userRepos.findByUsername(username);
         if(user == null) {
 
@@ -50,10 +49,14 @@ public class LoginController {
                 return new Gson().toJson(response);
             } else {
 
-                session.setAttribute("username", user.getUsername());
+                session.setAttribute("username", username);
+                session.setAttribute("userId", user.getId());
+                if(user.getAvatar_path() != null) {
+                    session.setAttribute("avatar", user.getAvatar_path());
+                }
             }
 
-        response = new ServerResponse("", false);
+        response = new ServerResponse("Success", false, username);
         return new Gson().toJson(response);
     }
 }

@@ -6,7 +6,6 @@ $('#login-btn').click(() => {
 
     let username = $('#login-username').val();
     let password = $('#login-password').val();
-    //console.log(login + ' ' + password);
 
     if(empty(username) || empty(password)) { $('#login-error').html("Fill all fields") } else
     {
@@ -22,9 +21,10 @@ $('#login-btn').click(() => {
                         response = $.parseJSON(response);
 
                         if(response.isError) {
-                            $('#login-error').html(response.message);
+                            $('#login-error').html(response.message).transition('fade in');
                         } else {
-                            window.location.href="/profile";
+                            let username = response.content;
+                            window.location.href="/profile/" + username;
                         }
                     },
                     error: function(response) {

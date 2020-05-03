@@ -2,27 +2,110 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>dev.meetup.profile</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" th:href="@{/css/master.css}">
 </head>
 <body>
-    <header th:insert="components/header :: header"></header>
+<div th:insert="components/sidebar :: sidebar"></div>
+<div class="pusher">
+    <div class="full height">
+        <div th:insert="components/header :: header"></div>
+        <div class="ui masthead center aligned segment" th:style="'background-image:'+
+            'linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),' +
+            'url('+ ${user.background_path == null? '/res/masthead.jpg' : user.background_path}  + ');'+
+            'background-position: center center;'+
+            'margin: 0em;' +
+            'border: none;' +
+            'border-radius: 0px;'
+        ">
+            <div class="ui container" style="padding: 5em;">
+                <p th:text="${user.username}" class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: center;letter-spacing: 0.01em;margin-bottom: 0em;"></p>
+                <p th:text="'with us from ' + ${user.getStringDate()}" class="ui yellow-text" style="font-weight: 900;padding-top: 0.7em;margin: 0;"></p>
+                <p th:text="${user.about}" class="ui white-text" style="font-weight: 600;margin-top: 6em;"></p>
+                <a th:if="${isProfileOwner}" class="white-text link-hover-center" style="font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;" href="/events/add">Add new event</a>
+                <a th:if="${!isProfileOwner && session.username != null}" class="white-text link-hover-center" style="font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;" th:href="'/chat/'+${session.userId}+'_'+${user.id}" id="btn-select-user">Send message</a>
+            </div>
+            <div style="text-align: center;color: white;font-size: 1.5em;" th:if="${!isProfileOwner || eventsByUser.size() > 0}">
+                <span style="font-weight: 800;border-bottom: 5px solid #F9AA0D;" th:text="${user.getEvents().size() > 0 && eventsByUser.size() == 0? 'subscried events' : 'organized events'}"></span><br><br>
+                <i style="font-weight: 800;" class="arrow down icon"></i>
+            </div>
+        </div>
+        <div th:if="${eventsByUser.size() == 0 && user.getEvents().size() == 0}">
+            <div style="text-align: center;padding: 5em;color: rgba(0,0,0,.2);font-size:1.5em;font-weight: 800;">Not events yet :(</div>
+        </div>
+        <div class="ui three column wide stackable grid" style="margin: 0;" th:if="${eventsByUser.size() > 0}">
+            <div th:each="event : ${eventsByUser}" th:id="'event' + ${event.id}" class="ui column" th:style="
+                'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
+                'url(' + ${event.picture_path} + ');' +
+                'background-position: center center; background-size: cover;'
+                ">
+                <div class="ui inverted content">
+                    <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
+                    <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <!--<p th:text="'This is profile, ' + ${session.login} + '!'" />-->
+                    <br><i style="font-weight: 700;" class="map marker alternate icon white-text"></i><span th:text="${event.place}" class="white-text" style="font-weight: 700;"></span>
+                    <p th:text="${event.description}" class="white-text" style="font-weight: 600;"></p>
 
-    <h1 th:text="'Hello, ' + ${user.username} + '!'"></h1>
-    <h3 th:text="'With us from ' + ${user.signup_date}"></h3>
-    <p th:text="${user.about}"></p>
-    <a href="/events/add">Add new event</a>
+                    <a th:href="'/event/' + ${event.id}" class="white-text" style="font-weight: 600;text-decoration: underline;line-height: 0.4em;">Read more</a>
+                    <div th:if="${isProfileOwner}">
+                        <a th:href="'/event/' + ${event.id} + '/edit'" class="white-text" style="font-weight: 600;line-height: 0.4em;"><i class="pencil icon"></i> Edit</a>
+                        <a th:id="'del' + ${event.id}" onclick="deleteEvent(this)" class="white-text" style="font-weight: 600;line-height: 0.4em;cursor: pointer;"><i class="trash icon"></i> Delete</a>
+                        <a th:href="'/event/'+${event.id}+'/subscribers'" class="white-text" style="font-weight: 600;line-height: 0.4em;cursor: pointer;"><i class="user circle icon"></i> Subscribers</a>
+                    </div>
+                    <br><i style="font-weight: 600;" class="eye icon white-text"></i><span th:text="${event.views}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.getUsers().size()}" class="white-text" style="font-weight: 600;"></span>
+                </div>
+            </div>
+        </div>
 
-    <a class="ui tiny green btn" href="/logout">Logout</a>
+        <div th:style="'background-image:'+
+            'linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),' +
+            'url('+ ${user.background_path == null? '/res/masthead.jpg' : user.background_path}  + ');'+
+            'background-position: center bottom;'+
+            'margin: 0em;' +
+            'border: none;' +
+            'border-radius: 0px;' +
+            'padding: 2em;' +
+            'font-size: 1.5em;' +
+            'color:white;' +
+            'text-align: center;'
+        " th:if="${user.getEvents().size() > 0 && eventsByUser.size() > 0}">
+            <span style="font-weight: 800;border-bottom: 5px solid #F9AA0D;">subscribed events</span>
+        </div>
+        <div class="ui three column wide stackable grid" style="margin: 0;" th:if="${user.getEvents().size() > 0}">
+            <div th:each="event : ${user.getEvents()}" class="ui column" th:style="
+                'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
+                'url(' + ${event.picture_path} + ');' +
+                'background-position: center center; background-size: cover;'
+                ">
+                <div class="ui inverted content">
+                    <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
+                    <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <div th:insert="components/footer :: footer"></div>
+                    <br><i style="font-weight: 700;" class="map marker alternate icon white-text"></i><span th:text="${event.place}" class="white-text" style="font-weight: 700;"></span>
+                    <p th:text="${event.description}" class="white-text" style="font-weight: 600;"></p>
 
+                    <a th:href="'/event/' + ${event.id}" class="white-text" style="font-weight: 600;text-decoration: underline;line-height: 0.4em;">Read more</a>
+                    <br><i style="font-weight: 600;" class="eye icon white-text"></i><span th:text="${event.views}" class="white-text" style="font-weight: 600;"></span>
+                    <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.getUsers().size()}" class="white-text" style="font-weight: 600;"></span>
+                </div>
+            </div>
+        </div>
+        <div th:insert="components/footer :: footer"></div>
+    </div>
+</div>
+<div th:insert="components/delete-modal :: #delete-modal"></div>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/websocket.js}"></script>
 <script th:src="@{/js/master.js}"></script>
+
 </body>
 </html>

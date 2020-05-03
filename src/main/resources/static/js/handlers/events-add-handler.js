@@ -9,25 +9,34 @@ function isPicture (file) {
 $('#events-add-btn').click( () => {
     let title = $('#events-add-title').val();
     let description = $('#events-add-description').val();
-    let markup = $('#events-add-markup').val();
+    let markup = $('#events-add-markup').html();
     let file = $('#events-add-file')[0].files[0];
-    let date = $('#custom').val();
+    let date = $('#events-add-date').val();
+    let place = $('#events-add-place').val();
 
     //console.log(default_picture_path + file.name);
     console.log(file.type);
-
-    if(empty(title) || empty(description) || empty(markup) || empty(date) || empty(file)) {
-        $('#events-add-error').html("Fill all fields").transition('shake');
+    console.log(file.source);
+    console.log(markup);
+    console.log(title);
+    console.log(description);
+    console.log(date);
+    console.log(place);
+    if(empty(title) || empty(description) || empty(markup) || empty(date) || empty(file) || empty(place)) {
+        $('#events-add-error').html("Fill all fields").transition('fade in');
     } else if (!isPicture(file)) {
-        $('#events-add-error').html("Picked file is not a picture").transition('shake');
+        $('#events-add-error').html("Picked file is not a picture").transition('fade in');
     } else {
 
         let data = new FormData();
         data.append("title",title);
         data.append("description", description);
         data.append("markup", markup);
-        data.append("dates", date);
+        data.append("date", date);
         data.append("file", file);
+        data.append("place", place);
+
+        console.log(date);
 
         $.ajax({
                     type: "POST",
@@ -42,14 +51,8 @@ $('#events-add-btn').click( () => {
                         if(response.isError) {
                             $('#events-add-error').html(response.message).transition('shake');
                         } else {
-                            $('#events-add-message').html(response.message).transition({
-                               duration: '3s',
-                               animation  : 'flash',
-                               onComplete : function() {
-
-                                 window.location.href="/profile";
-                               }
-                             });
+                            let publisher_username = response.content;
+                            window.location.href = "/profile/"+publisher_username;
                         }
                     },
                     error: function(response) {

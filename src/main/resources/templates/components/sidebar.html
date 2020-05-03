@@ -1,0 +1,11 @@
+<div class="ui sidebar vertical menu" th:fragment="sidebar">
+
+    <div th:if="${session.get('username') != null}">
+        <a th:href="'/profile/'+${session.username}" th:text="${session.username}" class="ui link black-text item" style="font-weight: 600;"></a>
+        <a href="/logout" class="ui link black-text item" style="font-weight: 600;">Logout</a>
+    </div>
+    <div th:if="${session.get('username') == null}">
+        <a href="/login" class="ui link black-text item" style="font-weight: 600;">Login</a>
+        <a href="/signup" class="ui link black-text item" style="font-weight: 600;">Sign up</a>
+    </div>
+</div>

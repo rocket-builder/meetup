@@ -1,15 +1,14 @@
 package com.dev.meetup.controllers;
 
 import com.dev.meetup.Security;
+import com.dev.meetup.models.ServerResponse;
 import com.dev.meetup.models.User;
 import com.dev.meetup.repos.UserRepos;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,32 +18,34 @@ public class SignupController {
 
     @Autowired
     private UserRepos userRepos;
+    private ServerResponse response = null;
 
     @GetMapping
-    public String signup(Model model) {
+    public String signup() {
         return "signup";
     }
 
     @PostMapping
+    @ResponseBody
     public String signup(
             @RequestParam String username,
             @RequestParam String email,
             @RequestParam String password,
-            Model model,
             HttpSession session
     ) {
         User userFromDb = userRepos.findByUsername(username);
 
         if(userFromDb != null) {
-            model.addAttribute("message", "This login are used, try another");
-            return "signup";
+
+            response = new ServerResponse("This username are used, try another", true);
+            return new Gson().toJson(response);
         } else {
             User user = new User(username, email, Security.MD5(password));
             userRepos.save(user);
 
             session.setAttribute("username", username);
-            model.addAttribute("user", user);
-            return "redirect:/profile";
+            response = new ServerResponse("", false, username);
+            return new Gson().toJson(response);
         }
     }
 }

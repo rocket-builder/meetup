@@ -4,6 +4,67 @@ body{
     font-family: 'Montserrat', sans-serif !important;
 }
 
+.sidebar>.item{
+    box-shadow: none!important;
+    background: white!important;
+    transition: none!important;
+
+}
+
+.item{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.yellow {
+    background-color: #F9AA0D !important;
+}
+
+input.custom {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    font-weight: 800;
+    line-height: 2em;
+    color: white;
+    outline: none;
+    width: 10em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+input.custom:focus {
+    border-bottom: 3px solid #F9AA0D;
+    transition: 0.3s;
+}
+
+input.custom-simple {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: auto;
+    text-align: center;
+}
+
+body::selection {
+    background: #F9AA0D !important;
+    color: white;
+}
+.yellow-text {
+    color: #F9AA0D !important;
+}
+.green {
+    background-color: #09AF5B !important;
+}
+.blue {
+    background-color: #5A16A8 !important;
+}
+.blue-text {
+    color: #5A16A8 !important;
+}
+.white-text {
+    color: #ffffff !important;
+}
+.black-text {
+    color: #000000 !important;
+}
 .success{
     font-weight: 800;
     color: white;
@@ -11,4 +72,44 @@ body{
     font-height: 1.5em;
     width: 100%;
     height: 1.5em;
+}
+
+.three.column.wide.stackable.grid{
+    background-color:rgba(0, 0, 0, 0.01) !important;
+}
+.link-hover-center {
+    display: inline-block;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+}
+.link-hover-center:after {
+    display: block;
+    content: "";
+    background-color: #07aa19;
+    height: 3px;
+    width: 0%;
+    left: 50%;
+    position: absolute;
+    transition: width .3s ease-in-out;
+    transform: translateX(-50%);
+}
+.link-hover-center :hover:after,
+.link-hover-center :focus:after {
+    width: 100%;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
 }
