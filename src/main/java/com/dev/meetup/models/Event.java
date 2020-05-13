@@ -34,6 +34,7 @@ public class Event {
     private Date upd = null;
     private EventStatus status;
     private String place;
+    private boolean isVisible;
 
     private int views;
 
@@ -49,6 +50,7 @@ public class Event {
         this.status = EventStatus.PREPARE;
         this.views = 0;
         this.publisher = user;
+        this.isVisible = false;
     }
 
     public void Update(String title, String description, String markup,
@@ -127,6 +129,9 @@ public class Event {
         
         return results;
     }
+
+    public boolean isVisible() { return isVisible; }
+    public void setVisible(boolean visible) { isVisible = visible; }
 }
 
 

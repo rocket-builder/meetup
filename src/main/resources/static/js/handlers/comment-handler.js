@@ -9,26 +9,30 @@ $('#btn-comment-add').click(() => {
     let eventId = document.location.pathname.split("/event/").pop();
 
     console.log(eventId);
-    $.ajax({
-        type: "POST",
-        url: "/comment/add",
-        data: {
-            text: text,
-            eventId: eventId
-        },
-        success: function(response) {
-            console.log(response);
 
-            response = $.parseJSON(response);
-            if(!response.isError) {
-                let commentHtml = getCommentHtml(text, response.content.toString(), response.content2.toString());
-                $('#comments-container').prepend(commentHtml).transition('fade in');
+    if(text !== '') {
+        $.ajax({
+            type: "POST",
+            url: "/comment/add",
+            data: {
+                text: text,
+                eventId: eventId
+            },
+            success: function (response) {
+                console.log(response);
+
+                response = $.parseJSON(response);
+                if (!response.isError) {
+                    $('#inp-comment-text').val('');
+                    let commentHtml = getCommentHtml(text, response.content.toString(), response.content2.toString());
+                    $('#comments-container').prepend(commentHtml).transition('fade in');
+                }
+            },
+            error: function (response) {
+                console.log(response);
             }
-        },
-        error: function(response) {
-            console.log(response);
-        }
-    });
+        });
+    }
 });
 
 function getCommentHtml(text, username, avatarPath) {

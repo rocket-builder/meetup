@@ -27,7 +27,7 @@
         ">
                 <div class="ui container" style="padding: 5em;">
                     <p class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: left;letter-spacing: 0.1em;">
-                        Find now<br>your next event<br>with us.
+                        Find now<br>your next event<br>with us
                     </p>
                     <p class="ui white-text" style="font-weight: 600;">Building your network is an important part of becoming a successful web developer. If you’re in a city of any size, you have for more meetup options than you have time. Let’s look at the meetups that are most effective for aspiring web developers.</p>
                     <a class="white-text link-hover-center" style="font-weight: 900;" href="/signup">Subscribe</a>
@@ -41,7 +41,7 @@
                 'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
                 'url(' + ${event.picture_path} + ');'+
                 'background-position: center center; background-size: cover;'
-                ">
+                " th:if="${event.isVisible()}">
                     <div class="ui inverted content">
                         <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
                         <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>

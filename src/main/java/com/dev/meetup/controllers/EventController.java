@@ -1,6 +1,7 @@
 package com.dev.meetup.controllers;
 
 import com.dev.meetup.enums.EventStatus;
+import com.dev.meetup.enums.UserRole;
 import com.dev.meetup.models.Event;
 import com.dev.meetup.models.SearchItem;
 import com.dev.meetup.models.ServerResponse;
@@ -162,7 +163,7 @@ public class EventController {
 
         ArrayList<SearchItem> results = new ArrayList<>();
         users.forEach(user -> results.add(new SearchItem(user.getUsername(),"/profile/"+user.getUsername(), user.getAvatar_path(), user.getAbout())));
-        events.forEach(event -> results.add(new SearchItem(event.getTitle(), "/event/"+event.getId(), event.getPicture_path(), event.getDescription())));
+        events.forEach(event -> {if(event.isVisible()) results.add(new SearchItem(event.getTitle(), "/event/"+event.getId(), event.getPicture_path(), event.getDescription()));});
 
         //return new Gson().toJson(results);
         return results.toArray();
@@ -179,7 +180,6 @@ public class EventController {
         model.addAttribute("file", new File(editEvent.getPicture_path()));
         return "events-edit";
     }
-
 
     @GetMapping("/events/add")
     public String eventsAdd(HttpSession session) {

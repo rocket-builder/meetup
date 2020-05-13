@@ -1,6 +1,7 @@
 package com.dev.meetup.controllers;
 
 import com.dev.meetup.Security;
+import com.dev.meetup.enums.UserRole;
 import com.dev.meetup.models.ServerResponse;
 import com.dev.meetup.models.User;
 import com.dev.meetup.repos.UserRepos;
@@ -51,6 +52,7 @@ public class LoginController {
 
                 session.setAttribute("username", username);
                 session.setAttribute("userId", user.getId());
+                session.setAttribute("isAdmin", user.getRole().equals(UserRole.ADMIN)? true : null);
                 if(user.getAvatar_path() != null) {
                     session.setAttribute("avatar", user.getAvatar_path());
                 }

@@ -14,6 +14,8 @@ public interface EventRepos extends CrudRepository<Event, Long> {
 
     Event findByTitle(String title);
     Event findById(long id);
+
+    List<Event> findAllByIsVisibleFalseOrderByIdDesc();
     List<Event> findAll();
     List<Event> findByTitleContainsIgnoreCase(String match);
 

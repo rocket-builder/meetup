@@ -1,5 +1,7 @@
 package com.dev.meetup.models;
 
+import com.dev.meetup.enums.UserRole;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -21,6 +23,7 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "event_id") }
     )
     private Set<Event> events = new HashSet<>();
+    private UserRole role;
 
     private String username, email, password, about, background_path, avatar_path;
     private Date signup_date;
@@ -31,6 +34,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.signup_date = new Date((new java.util.Date()).getTime());
+        this.role = UserRole.USER;
     }
 
     public long getId() {
@@ -87,4 +91,7 @@ public class User {
 
     public String getAvatar_path() { return avatar_path; }
     public void setAvatar_path(String avatar_path) { this.avatar_path = avatar_path; }
+
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
 }

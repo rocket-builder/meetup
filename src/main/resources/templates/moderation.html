@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>dev.meetup.events</title>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="icon" type="image/png" th:href="@{/res/logo.png}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/master.css}">
+</head>
+<body>
+<div th:insert="components/sidebar :: sidebar"></div>
+<div class="pusher">
+    <div class="full height">
+        <div th:insert="components/header :: header"></div>
+        <div class="ui masthead center aligned segment" style="
+            background-image:
+            linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),
+            url('/res/moderation.jpg');
+            background-position: center center;
+            margin: 0em;
+            border: none;
+            border-radius: 0;
+        ">
+            <div class="ui container" style="padding: 5em;">
+                <p class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: left;letter-spacing: 0.1em;">
+                    Pre<br>Moderation<br>Page
+                </p>
+                <p class="ui white-text" style="font-weight: 600;">Hello, this page is intended only for administrators of our platform, here you can decide which events comply with our publication rules, and which do not, good work!</p>
+                <a class="white-text link-hover-center" style="font-weight: 900;" href="/signup">Subscribe</a>
+            </div>
+        </div>
+        <div class="ui three column wide stackable grid" style="margin: 0em;">
+            <div class="ui container" style="padding: 10em;" th:if="${events.size() == 0}">
+                <p style="font-weight: 800;color:rgba(0,0,0,.2);font-size: 1.5em;text-align: center;">No events yet :(</p>
+            </div>
+            <div th:each="event : ${events}" class="ui column" th:style="
+                'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
+                'url(' + ${event.picture_path} + ');'+
+                'background-position: center center; background-size: cover;'
+                " th:id="'eventModerator'+ ${event.id}">
+                <div class="ui inverted content">
+                    <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
+                    <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <br><i style="font-weight: 700;" class="map marker alternate icon white-text"></i><span th:text="${event.place}" class="white-text" style="font-weight: 700;"></span>
+                    <p th:text="${event.description}" class="white-text" style="font-weight: 600;"></p>
+                    <br>
+                    <button class="white-text link-hover-center btn-moderation-publish" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;background: transparent;outline: none;" th:id="'eventPublish'+ ${event.id}">publish</button>
+                    <a th:href="'/event/' + ${event.id}" class="white-text link-hover-center" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;background: transparent;">read more</a>
+                    <button class="white-text link-hover-center btn-moderation-deny" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;background: transparent;outline: none;" th:id="'eventDeny'+ ${event.id}">deny</button>
+                </div>
+            </div>
+        </div>
+        <div th:insert="components/footer :: footer"></div>
+    </div>
+</div>
+
+<div th:insert="components/approve-modal :: #approve-modal"></div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script th:src="@{/js/master.js}"></script>
+<script th:src="@{/js/handlers/moderation-handler.js}"></script>
+</body>
+</html>

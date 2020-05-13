@@ -32,6 +32,9 @@
                 <div class="item">
                     <a href="/events/past" class="ui link black-text" style="font-weight: 600;">Past</a>
                 </div>
+                <div class="item" th:if="${session.get('isAdmin') != null}">
+                    <a href="/events/moderation" class="ui link black-text" style="font-weight: 600;border-bottom: 3px solid #F9AA0D;">Moderation</a>
+                </div>
                 <div class="right menu inverted" th:if="${session.get('username') == null}">
                     <div class="item">
                         <a href="/login" class="ui link black-text" style="font-weight: 600;">Login</a>
