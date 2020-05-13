@@ -43,7 +43,7 @@
                 'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
                 'url(' + ${event.picture_path} + ');' +
                 'background-position: center center; background-size: cover;'
-                " th:if="${event.isVisible()}">
+                " th:if="${event.isVisible() || isProfileOwner}">
                 <div class="ui inverted content">
                     <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
                     <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>
@@ -53,10 +53,13 @@
                     <p th:text="${event.description}" class="white-text" style="font-weight: 600;"></p>
 
                     <a th:href="'/event/' + ${event.id}" class="white-text" style="font-weight: 600;text-decoration: underline;line-height: 0.4em;">Read more</a>
-                    <div th:if="${isProfileOwner}">
+                    <div th:if="${isProfileOwner && event.isVisible()}">
                         <a th:href="'/event/' + ${event.id} + '/edit'" class="white-text" style="font-weight: 600;line-height: 0.4em;"><i class="pencil icon"></i> Edit</a>
                         <a th:id="'del' + ${event.id}" onclick="deleteEvent(this)" class="white-text" style="font-weight: 600;line-height: 0.4em;cursor: pointer;"><i class="trash icon"></i> Delete</a>
                         <a th:href="'/event/'+${event.id}+'/subscribers'" class="white-text" style="font-weight: 600;line-height: 0.4em;cursor: pointer;"><i class="user circle icon"></i> Subscribers</a>
+                    </div>
+                    <div th:if="${!event.isVisible()}">
+                        <p class="white-text" style="font-weight: 700;line-height: 0.4em;user-select: none;padding: 1em;font-size: 1.5em;">On Pre-Moderation</p>
                     </div>
                     <br><i style="font-weight: 600;" class="eye icon white-text"></i><span th:text="${event.views}" class="white-text" style="font-weight: 600;"></span>
                     <i style="font-weight: 600;" class="users icon white-text"></i><span th:text="${event.users.size()}" class="white-text" style="font-weight: 600;"></span>
@@ -84,7 +87,7 @@
                 'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
                 'url(' + ${event.picture_path} + ');' +
                 'background-position: center center; background-size: cover;'
-                " th:if="${event.isVisible()}">
+                ">
                 <div class="ui inverted content">
                     <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
                     <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>

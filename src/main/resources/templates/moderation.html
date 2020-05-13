@@ -41,7 +41,7 @@
                 'background-image:linear-gradient(to top, rgba(249, 170, 13, 0.3), rgba(249, 170, 13, 0.3)),'+
                 'url(' + ${event.picture_path} + ');'+
                 'background-position: center center; background-size: cover;'
-                " th:id="'eventModerator'+ ${event.id}">
+                " th:id="'eventModeration'+ ${event.id}">
                 <div class="ui inverted content">
                     <p th:text="${event.title}" class="white-text" style="font-size: 2em;font-weight: 800;margin-bottom: 0em;line-height: 0.5em;"></p>
                     <span class="white-text" th:text="${event.geStringDate()}" style="font-weight: 700;border-bottom: 3px solid #F9AA0D;padding-bottom: -1em;"></span>

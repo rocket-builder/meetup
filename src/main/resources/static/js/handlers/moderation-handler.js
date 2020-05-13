@@ -26,8 +26,7 @@ $('.btn-moderation-publish').click(function () {
 });
 
 
-
-$('.btn-moderation-deny').click(() => {
+$('.btn-moderation-deny').click(function (){
     let id = $(this).attr('id').split('eventDeny').pop();
 
     $('#approve-modal')

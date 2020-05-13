@@ -27,7 +27,7 @@
                     <p th:text="${event.title}" class="ui white-text" style="font-size: 7em; font-weight: 900;line-height: 0.5em;text-align: center;letter-spacing: 0.01em;">
                     </p>
                     <p th:text="${event.description}" class="ui white-text" style="font-weight: 600;"></p>
-                    <div th:if="${event.status.toString() == 'PREPARE'}" th:text="${isSubscribed}? 'Unsubscribe' : 'Subscribe'" class="white-text link-hover-center btn-subscribe" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;" th:id="'event' + ${event.id}" onclick="subscribe(this)"></div>
+                    <div th:if="${event.status.toString() == 'PREPARE' && event.isVisible()}" th:text="${isSubscribed}? 'Unsubscribe' : 'Subscribe'" class="white-text link-hover-center btn-subscribe" style="padding: 1em;font-weight: 900;border: 3px solid #F9AA0D;" th:id="'event' + ${event.id}" onclick="subscribe(this)"></div>
                 </div>
             </div>
             <div style="text-align: center">
@@ -43,7 +43,7 @@
             </div>
             <div class="ui container" th:utext="${event.markup}" style="margin-bottom: 5em;"></div>
 
-            <div class="ui container">
+            <div class="ui container" th:if="${event.isVisible()}">
                 <form class="ui reply form" th:if="${session.get('username') != null}">
                     <div class="field">
                         <textarea id="inp-comment-text"></textarea>
