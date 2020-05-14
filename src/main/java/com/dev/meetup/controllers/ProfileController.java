@@ -145,6 +145,19 @@ public class ProfileController {
         return "profile-edit";
     }
 
+    @PostMapping("/profile/delete")
+    @ResponseBody
+    public String profileDelete(@RequestParam boolean approve, HttpSession session) {
+        if(approve) {
+            User user = userRepos.findByUsername(session.getAttribute("username").toString());
+            userRepos.delete(user);
+
+            session.invalidate();
+            return "Profile deleted";
+        }
+        return "Approve is false";
+    }
+
     private void upload_file(MultipartFile file, String path) throws IOException {
         byte[] bytes = file.getBytes();
 

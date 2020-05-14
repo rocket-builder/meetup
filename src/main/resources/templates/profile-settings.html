@@ -50,12 +50,15 @@
             </div>
             <div id="btn-save-password" class="center aligned" style="cursor: pointer;display: inline-block;font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;">Save new password</div>
             <div id="message-profile-settings" style="color:rgba(0,0,0,.2);display: none;font-weight: 700;padding: 2em;text-align: center;"></div>
+            <br>
+            <br>
+            <div id="btn-profile-delete" class="center aligned" style="cursor: pointer;display: inline-block;font-weight: 900;border: 3px solid #F9AA0D;padding: 1em;">Delete my profile</div>
         </div>
 
         <div th:insert="components/footer :: footer"></div>
     </div>
 </div>
-<div th:insert="components/delete-modal :: #delete-modal"></div>
+<div th:insert="components/approve-modal :: #approve-modal"></div>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script th:src="@{/js/handlers/profile-settings-handler.js}"></script>

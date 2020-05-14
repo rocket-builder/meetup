@@ -130,4 +130,29 @@ function preview(input) {
     }
 }
 
+$('#btn-profile-delete').click(() => {
+    $('#approve-modal')
+        .modal({
+            blurring: true,
+            closable  : true,
+            onDeny    : function(){
+                $(this).modal('hide');
+            },
+            onApprove : function() {
+                $.ajax({
+                    url: '/profile/delete',
+                    type: 'POST',
+                    data: { approve: true },
+                    success: function (response) {
+                        console.log(response);
+                        window.location = "/events";
+                    },
+                    error: function (response) { console.log(response); }
+                });
+            }
+        })
+        .modal('show');
+});
+
+
 

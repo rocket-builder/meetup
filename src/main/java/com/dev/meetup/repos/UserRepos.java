@@ -14,4 +14,6 @@ public interface UserRepos extends CrudRepository<User, Long> {
     List<User> findByUsernameContainsIgnoreCase(String username);
     User findByUsername(String username);
     User findById (long id);
+
+    void deleteByUsername(String username);
 }
