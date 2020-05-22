@@ -36,7 +36,7 @@
         </div>
         <div th:if="${event.getUsers().size() == 0}" style="text-align: center;padding: 5em;color: rgba(0,0,0,.2);font-size:1.5em;font-weight: 800;">Not subscribers yet :(</div>
 
-        <div class="ui three column wide stackable grid container" th:if="${event.getUsers().size() > 0}" style="margin-bottom: 5em;">
+        <div class="ui three column wide stackable grid container" th:if="${event.getUsers().size() > 0}" style="margin-bottom: 5em;background-color:white!important;">
             <div class="ui column" th:each="user : ${event.getUsers()}" style="justify-content: center;">
                 <p style="text-align: center;">
                     <i class="huge circular user icon" th:if="${user.avatar_path == null}"></i>
