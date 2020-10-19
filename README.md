@@ -1,2 +1,2 @@
 # dev.meetup
- Java Spring project for it meetups
+ Java Spring application for it meetups
